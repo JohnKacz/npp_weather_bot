@@ -23,5 +23,14 @@ defmodule NPPWeatherBot.Application do
   def init_network() do
     opts = Application.get_env(:npp_weather_bot, @interface)
     Nerves.InterimWiFi.setup(@interface, opts)
+    :timer.sleep(10_000)
+    init_time()
+  end
+
+  def init_time() do
+    IO.puts System.os_time(:second)
+    System.cmd("ntpd", ["-q", "-p", "pool.ntp.org"])
+    :timer.sleep(5_000)
+    IO.puts System.os_time(:second)
   end
 end

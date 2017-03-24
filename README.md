@@ -52,6 +52,16 @@ This will in turn allow use of a custom config.txt where we can uncomment this l
 `dtoverlay=w1-gpio-pullup,gpiopin=4`
 
 ## Twitter
+We are using the Twitter client library [ExTwitter](https://github.com/parroty/extwitter)
+([docs](http://hexdocs.pm/extwitter))
+
+> The :consumer\_key, :consumer\_secret, :access\_token, and :access\_token\_secret have been 
+shared in the NPP Outline Document or you can email me for them directly. You can hard-code them
+in config.exs or preferably export them to your environment.
+
+Feel free to play around with pattern matching in
+[`pick_saying/1`](https://github.com/johnkacz/npp_weather_bot/blob/master/lib/npp_weather_bot/tweet.ex#L19)
+and make your own sayings for your station.  Also make sure you have your correct station number in config.exs
 
 ## WeatherServer
 
