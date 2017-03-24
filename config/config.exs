@@ -23,3 +23,5 @@ config :extwitter, :oauth, [
    access_token: System.get_env("TWITTER_ACCESS_TOKEN"),
    access_token_secret: System.get_env("TWITTER_ACCESS_SECRET")
 ]
+
+import_config "#{Mix.Project.config[:target]}.exs"

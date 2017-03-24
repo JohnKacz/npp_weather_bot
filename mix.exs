@@ -25,16 +25,17 @@ defmodule NPPWeatherBot.Mixfile do
   def application, do: application(@target)
 
   def application("host") do
-    [extra_applications: [:logger, :extwitter]]
+    [extra_applications: [:logger, :extwitter, :quantum]]
   end
   def application(_target) do
     [mod: {NPPWeatherBot.Application, []},
-     extra_applications: [:logger, :extwitter, :oauther, :poison]]
+     extra_applications: [:logger, :extwitter, :oauther, :poison, :quantum]]
   end
 
   def deps do
     [{:nerves, "~> 0.5.0", runtime: false},
-     {:extwitter, "~> 0.8.3"}] ++
+     {:extwitter, "~> 0.8.3"},
+     {:quantum, "~> 1.9.1"}] ++
     deps(@target)
   end
 
