@@ -64,5 +64,7 @@ Feel free to play around with pattern matching in
 and make your own sayings for your station.  Also make sure you have your correct station number in config.exs
 
 ## WeatherServer
+WeatherServer is a GenServer that simply calls into the Tweet module, but this allows us
+to supervise it in our main application so it can be restarted if it ever crashes
 
 ## Scheduling
