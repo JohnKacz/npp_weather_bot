@@ -1,6 +1,7 @@
 defmodule NPPWeatherBot.Application do
   use Application
 
+  @target System.get_env("MIX_TARGET") || "host"
   @interface :wlan0
   @kernel_modules Mix.Project.config[:kernel_modules]
 
@@ -9,7 +10,7 @@ defmodule NPPWeatherBot.Application do
 
     children = [
       worker(Task, [fn -> init_kernel_modules() end], restart: :transient, id: Nerves.Init.KernelModules),
-      worker(Task, [fn -> init_network() end], restart: :transient, id: Nerves.Init.Network),
+      worker(Task, [fn -> init_network(@target) end], restart: :transient, id: Nerves.Init.Network),
       worker(NPPWeatherBot.WeatherServer, [])
     ]
 
@@ -21,7 +22,8 @@ defmodule NPPWeatherBot.Application do
     Enum.each(@kernel_modules, & System.cmd("modprobe", [&1]))
   end
 
-  def init_network() do
+  def init_network("host"), do: []
+  def init_network(_target) do
     opts = Application.get_env(:npp_weather_bot, @interface)
     Nerves.InterimWiFi.setup(@interface, opts)
     :timer.sleep(10_000)

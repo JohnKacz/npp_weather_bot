@@ -25,7 +25,7 @@ defmodule NPPWeatherBot.Mixfile do
   def application, do: application(@target)
 
   def application("host") do
-    [extra_applications: [:logger, :extwitter]]
+    [extra_applications: [:logger, :extwitter, :quantum]]
   end
   def application(_target) do
     [mod: {NPPWeatherBot.Application, []},
