@@ -17,19 +17,13 @@ defmodule NPPWeatherBot.Mixfile do
      build_path: "_build/#{@target}",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     kernel_modules: kernel_modules(@target),
      aliases: aliases(@target),
      deps: deps()]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
   def application, do: application(@target)
 
-  # Specify target specific application configurations
-  # It is common that the application start function will start and supervise
-  # applications which could cause the host to fail. Because of this, we only
-  # invoke NPPWeatherBot.start/2 when running on a target.
   def application("host") do
     [extra_applications: [:logger]]
   end
@@ -38,15 +32,6 @@ defmodule NPPWeatherBot.Mixfile do
      extra_applications: [:logger]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   def deps do
     [{:nerves, "~> 0.5.0", runtime: false}] ++
     deps(@target)
@@ -56,8 +41,14 @@ defmodule NPPWeatherBot.Mixfile do
   def deps("host"), do: []
   def deps(target) do
     [{:nerves_runtime, "~> 0.1.0"},
-     {:"nerves_system_#{target}", "~> 0.11.0", runtime: false}]
+     {:"nerves_system_#{target}", "~> 0.11.0", runtime: false},
+     {:nerves_interim_wifi, "~> 0.2"}]
   end
+
+  def kernel_modules("rpi3") do
+    ["brcmfmac"]
+  end
+  def kernel_modules(_), do: []
 
   # We do not invoke the Nerves Env when running on the Host
   def aliases("host"), do: []
