@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :nerves, :firmware,
+  fwup_conf: "config/rpi3/fwup.conf"
+
 config :npp_weather_bot, :wlan0,
   ssid: "BasicACUwifi",
   key_mgmt: :NONE
