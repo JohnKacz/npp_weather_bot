@@ -53,7 +53,7 @@ This will in turn allow use of a custom config.txt where we can uncomment this l
 
 ## Twitter
 We are using the Twitter client library [ExTwitter](https://github.com/parroty/extwitter)
-([docs](http://hexdocs.pm/extwitter))
+([docs](https://hexdocs.pm/extwitter))
 
 > The :consumer\_key, :consumer\_secret, :access\_token, and :access\_token\_secret have been 
 shared in the NPP Outline Document or you can email me for them directly. You can hard-code them
@@ -65,6 +65,11 @@ and make your own sayings for your station.  Also make sure you have your correc
 
 ## WeatherServer
 WeatherServer is a GenServer that simply calls into the Tweet module, but this allows us
-to supervise it in our main application so it can be restarted if it ever crashes
+to supervise it in our main application so it can be restarted if it ever crashes.
 
 ## Scheduling
+We are using the job scheduler library [Quantum](https://github.com/c-rack/quantum-elixir)
+([docs](https://hexdocs.pm/quantum))
+
+Each station will be given a schedule. Go to [crontab.guru](https://crontab.guru) to
+better understand the cron schedule expressions.
