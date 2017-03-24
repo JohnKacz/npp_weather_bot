@@ -5,6 +5,10 @@ defmodule NPPWeatherBot.WeatherServer do
     GenServer.cast(:weather_server, {:report})
   end
 
+  def fake_report() do
+    GenServer.cast(:weather_server, {:fake_report})
+  end
+
   ###
   # GenServer API
   ###
@@ -19,6 +23,11 @@ defmodule NPPWeatherBot.WeatherServer do
 
   def handle_cast({:report}, _) do
     NPPWeatherBot.Tweet.tweet_temp()
+    {:noreply, []}
+  end
+
+  def handle_cast({:fake_report}, _) do
+    NPPWeatherBot.Tweet.tweet("This is just a test...")
     {:noreply, []}
   end
 end
