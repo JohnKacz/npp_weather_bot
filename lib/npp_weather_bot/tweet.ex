@@ -17,15 +17,17 @@ defmodule NPPWeatherBot.Tweet do
   end
 
   def pick_saying(temp) do
-    seed = Enum.random(1..5)
-    case {temp, seed} do
-      {temp,_} when temp >= 100 -> "Wow it's #{temp}° right now! Let's go get ice cream! ##{@station}"
-      {temp,_} when temp <= 32 -> "Brrr! It's #{temp}° outside. Stay warm out there. ##{@station}"
-      {temp,1} -> "It's currently #{temp}° #ACUweather ##{@station}"
-      {temp,2} -> "In other news the temperature outside is #{temp}° #ACUweather ##{@station}"
-      {temp,3} -> "#{temp}° F in Abilene, TX ##{@station}"
-      {temp,4} -> "Weather report for Abilene, TX: #{temp}° F ##{@station}"
-      {temp,5} -> "Abilene, TX: #{temp}° F #ACUweather ##{@station}"
+
+    cond do
+      temp >= 120 -> "What is this? Death Valley? It's #{temp}° outside right now. ##{@station}"
+      temp >= 100 -> "Wow it's #{temp}° right now! Let's go get ice cream! #ACUweather ##{@station}"
+      temp >= 90 -> "Currently #{temp}° It's warming up. #ACUweather ##{@station}"
+      temp >= 80 -> "In other news the temperature outside is #{temp}° #ACUweather ##{@station}"
+      temp >= 65 -> "It's currently a pleasant #{temp}° F in Abilene, TX #ACUweather ##{@station}"
+      temp >= 50 -> "Weather report for Abilene, TX: #{temp}° F #ACUweather ##{@station}"
+      temp >= 40 -> "Abilene, TX: #{temp}° F #ACUweather ##{@station}"
+      temp >= 32 -> "Brrr! It's #{temp}° outside. Stay warm out there. #ACUweather ##{@station}"
+      temp < 32 -> "#{temp}° Good thing my circuits keep me warm. #ACUweather ##{@station}"
     end
   end
 end
